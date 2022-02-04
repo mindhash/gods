@@ -61,7 +61,7 @@ func (iterator *Iterator) Begin() {
 	iterator.element = nil
 }
 
-func (iterator *Iterator) Last() bool {
+func (iterator *Iterator) End() bool {
 	element := iterator.list.Last
 	if element != nil {
 		iterator.element = element 
