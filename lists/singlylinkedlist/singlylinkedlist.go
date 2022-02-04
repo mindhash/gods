@@ -25,7 +25,7 @@ func assertListImplementation() {
 type List struct {
 	First *Element
 	Last  *Element
-	Size  int
+	size  int
 } 
 
 type Element struct {
@@ -47,14 +47,14 @@ func New(values ...interface{}) *List {
 func (list *List) Add(values ...interface{}) {
 	for _, value := range values {
 		newElement := &Element{Value: value}
-		if list.Size == 0 {
+		if list.size  == 0 {
 			list.First = newElement
 			list.Last = newElement
 		} else {
-			list.Last.next = newElement
+			list.Last.Next = newElement
 			list.Last = newElement
 		}
-		list.Size++
+		list.size ++
 	}
 }
 
@@ -67,9 +67,9 @@ func (list *List) Append(values ...interface{}) {
 func (list *List) Prepend(values ...interface{}) {
 	// in reverse to keep passed order i.e. ["c","d"] -> Prepend(["a","b"]) -> ["a","b","c",d"]
 	for v := len(values) - 1; v >= 0; v-- {
-		newElement := &Element{value: values[v], next: list.First}
+		newElement := &Element{Value: values[v], Next: list.First}
 		list.First = newElement
-		if list.Size == 0 {
+		if list.size  == 0 {
 			list.Last = newElement
 		}
 		list.size++
@@ -85,7 +85,7 @@ func (list *List) Get(index int) (interface{}, bool) {
 	}
 
 	element := list.First
-	for e := 0; e != index; e, element = e+1, element.next {
+	for e := 0; e != index; e, element = e+1, element.Next {
 	}
 
 	return element.Value, true
@@ -105,15 +105,15 @@ func (list *List) Remove(index int) {
 
 	var beforeElement *Element
 	element := list.First
-	for e := 0; e != index; e, element = e+1, element.next {
+	for e := 0; e != index; e, element = e+1, element.Next {
 		beforeElement = element
 	}
 
 	if element == list.First {
-		list.first = element.next
+		list.First = element.Next
 	}
 	if element == list.Last {
-		list.last = beforeElement
+		list.Last = beforeElement
 	}
 	if beforeElement != nil {
 		beforeElement.Next = element.Next
@@ -138,7 +138,7 @@ func (list *List) Contains(values ...interface{}) bool {
 	}
 	for _, value := range values {
 		found := false
-		for element := list.First; element != nil; element = element.next {
+		for element := list.First; element != nil; element = element.Next {
 			if element.Value == value {
 				found = true
 				break
@@ -153,8 +153,8 @@ func (list *List) Contains(values ...interface{}) bool {
 
 // Values returns all elements in the list.
 func (list *List) Values() []interface{} {
-	values := make([]interface{}, list.Size, list.size)
-	for e, element := 0, list.First; element != nil; e, element = e+1, element.next {
+	values := make([]interface{}, list.size , list.size)
+	for e, element := 0, list.First; element != nil; e, element = e+1, element.Next {
 		values[e] = element.Value
 	}
 	return values
@@ -162,7 +162,7 @@ func (list *List) Values() []interface{} {
 
 //IndexOf returns index of provided element
 func (list *List) IndexOf(value interface{}) int {
-	if list.Size == 0 {
+	if list.size  == 0 {
 		return -1
 	}
 	for index, element := range list.Values() {
@@ -175,17 +175,17 @@ func (list *List) IndexOf(value interface{}) int {
 
 // Empty returns true if list does not contain any elements.
 func (list *List) Empty() bool {
-	return list.Size == 0
+	return list.size  == 0
 }
 
 // Size returns number of elements within the list.
 func (list *List) Size() int {
-	return list.Size
+	return list.size 
 }
 
 // Clear removes all elements from the list.
 func (list *List) Clear() {
-	list.Size = 0
+	list.size  = 0
 	list.First = nil
 	list.Last = nil
 }
@@ -193,7 +193,7 @@ func (list *List) Clear() {
 // Sort sort values (in-place) using.
 func (list *List) Sort(comparator utils.Comparator) {
 
-	if list.Size < 2 {
+	if list.size  < 2 {
 		return
 	}
 
@@ -229,7 +229,7 @@ func (list *List) Insert(index int, values ...interface{}) {
 
 	if !list.withinRange(index) {
 		// Append
-		if index == list.Size {
+		if index == list.size  {
 			list.Add(values...)
 		}
 		return
@@ -239,11 +239,11 @@ func (list *List) Insert(index int, values ...interface{}) {
 
 	var beforeElement *Element
 	foundElement := list.First
-	for e := 0; e != index; e, foundElement = e+1, foundElement.next {
+	for e := 0; e != index; e, foundElement = e+1, foundElement.Next {
 		beforeElement = foundElement
 	}
 
-	if foundElement == list.first {
+	if foundElement == list.First {
 		oldNextElement := list.First
 		for i, value := range values {
 			newElement := &Element{Value: value}
@@ -254,11 +254,11 @@ func (list *List) Insert(index int, values ...interface{}) {
 			}
 			beforeElement = newElement
 		}
-		beforeElement.next = oldNextElement
+		beforeElement.Next = oldNextElement
 	} else {
 		oldNextElement := beforeElement.Next
 		for _, value := range values {
-			newElement := &element{Value: value}
+			newElement := &Element{Value: value}
 			beforeElement.Next = newElement
 			beforeElement = newElement
 		}
@@ -273,7 +273,7 @@ func (list *List) Set(index int, value interface{}) {
 
 	if !list.withinRange(index) {
 		// Append
-		if index == list.Size {
+		if index == list.size  {
 			list.Add(value)
 		}
 		return
@@ -290,7 +290,7 @@ func (list *List) Set(index int, value interface{}) {
 func (list *List) String() string {
 	str := "SinglyLinkedList\n"
 	values := []string{}
-	for element := list.First; element != nil; element = element.next {
+	for element := list.First; element != nil; element = element.Next {
 		values = append(values, fmt.Sprintf("%v", element.Value))
 	}
 	str += strings.Join(values, ", ")
@@ -299,5 +299,5 @@ func (list *List) String() string {
 
 // Check that the index is within bounds of the list
 func (list *List) withinRange(index int) bool {
-	return index >= 0 && index < list.Size
+	return index >= 0 && index < list.size 
 }

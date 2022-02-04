@@ -14,7 +14,7 @@ func assertIteratorImplementation() {
 type Iterator struct {
 	list    *List
 	index   int
-	element *element
+	element *Element
 }
 
 // Iterator returns a stateful iterator whose values can be fetched by an index.
@@ -35,9 +35,9 @@ func (iterator *Iterator) Next() bool {
 		return false
 	}
 	if iterator.index == 0 {
-		iterator.element = iterator.list.first
+		iterator.element = iterator.list.First
 	} else {
-		iterator.element = iterator.element.next
+		iterator.element = iterator.element.Next
 	}
 	return true
 }
@@ -45,7 +45,7 @@ func (iterator *Iterator) Next() bool {
 // Value returns the current element's value.
 // Does not modify the state of the iterator.
 func (iterator *Iterator) Value() interface{} {
-	return iterator.element.value
+	return iterator.element.Value
 }
 
 // Index returns the current element's index.
