@@ -61,6 +61,15 @@ func (iterator *Iterator) Begin() {
 	iterator.element = nil
 }
 
+func (iterator *Iterator Last() bool {
+	element := iterator.list.Last
+	if element != nil {
+		iterator.element = element 
+		iterator.index = iterator.list.size - 1
+	}
+	return false
+}
+
 // First moves the iterator to the first element and returns true if there was a first element in the container.
 // If First() returns true, then first element's index and value can be retrieved by Index() and Value().
 // Modifies the state of the iterator.
