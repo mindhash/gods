@@ -22,6 +22,10 @@ func (list *List) Iterator() Iterator {
 	return Iterator{list: list, index: -1, element: nil}
 }
 
+func (iterator *Iterator) Empty() bool {
+	return iterator.element == nil  
+}
+
 // Next moves the iterator to the next element and returns true if there was a next element in the container.
 // If Next() returns true, then next element's index and value can be retrieved by Index() and Value().
 // If Next() was called for the first time, then it will point the iterator to the first element if it exists.
