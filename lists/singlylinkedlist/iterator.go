@@ -26,6 +26,10 @@ func (iterator *Iterator) ReloadElement() {
 	iterator.element = iterator.list.GetElement(iterator.index)
 }
 
+func (iterator *Iterator) GetElement() *Element{
+	return iterator.element
+}
+
 func (iterator *Iterator) Empty() bool {
 	return iterator.element == nil 
 }
