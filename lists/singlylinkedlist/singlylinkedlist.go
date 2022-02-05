@@ -76,6 +76,19 @@ func (list *List) Prepend(values ...interface{}) {
 	}
 }
 
+func (list *List) GetElement(index int) (*Element) {
+
+	if !list.withinRange(index) {
+		return nil
+	}
+
+	element := list.First
+	for e := 0; e != index; e, element = e+1, element.Next {
+	}
+
+	return element
+}
+
 // Get returns the element at index.
 // Second return parameter is true if index is within bounds of the array and array is not empty, otherwise false.
 func (list *List) Get(index int) (interface{}, bool) {

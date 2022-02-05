@@ -22,8 +22,12 @@ func (list *List) Iterator() Iterator {
 	return Iterator{list: list, index: -1, element: nil}
 }
 
+func (iterator *Iterator) ReloadElement() {
+	iterator.element = iterator.list.GetElement(iterator.index)
+}
+
 func (iterator *Iterator) Empty() bool {
-	return iterator.element == nil  
+	return iterator.element == nil 
 }
 
 // Next moves the iterator to the next element and returns true if there was a next element in the container.
