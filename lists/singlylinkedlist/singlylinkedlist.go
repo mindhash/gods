@@ -78,7 +78,7 @@ func (list *List) Prepend(values ...interface{}) {
 
 func (list *List) GetElement(index int) (*Element) {
 
-	if !list.withinRange(index) {
+	if !list.WithinRange(index) {
 		return nil
 	}
 
@@ -93,7 +93,7 @@ func (list *List) GetElement(index int) (*Element) {
 // Second return parameter is true if index is within bounds of the array and array is not empty, otherwise false.
 func (list *List) Get(index int) (interface{}, bool) {
 
-	if !list.withinRange(index) {
+	if !list.WithinRange(index) {
 		return nil, false
 	}
 
@@ -107,7 +107,7 @@ func (list *List) Get(index int) (interface{}, bool) {
 // Remove removes the element at the given index from the list.
 func (list *List) Remove(index int) {
 
-	if !list.withinRange(index) {
+	if !list.WithinRange(index) {
 		return
 	}
 
@@ -237,7 +237,7 @@ func (list *List) Sort(comparator utils.Comparator) {
 
 // Swap swaps values of two elements at the given indices.
 func (list *List) Swap(i, j int) {
-	if list.withinRange(i) && list.withinRange(j) && i != j {
+	if list.WithinRange(i) && list.WithinRange(j) && i != j {
 		var element1, element2 *Element
 		for e, currentElement := 0, list.First; element1 == nil || element2 == nil; e, currentElement = e+1, currentElement.Next {
 			switch e {
@@ -256,7 +256,7 @@ func (list *List) Swap(i, j int) {
 // Note: position equal to list's size is valid, i.e. append.
 func (list *List) Insert(index int, values ...interface{}) {
 
-	if !list.withinRange(index) {
+	if !list.WithinRange(index) {
 		// Append
 		if index == list.size  {
 			list.Add(values...)
@@ -300,7 +300,7 @@ func (list *List) Insert(index int, values ...interface{}) {
 // Note: position equal to list's size is valid, i.e. append.
 func (list *List) Set(index int, value interface{}) {
 
-	if !list.withinRange(index) {
+	if !list.WithinRange(index) {
 		// Append
 		if index == list.size  {
 			list.Add(value)

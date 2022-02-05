@@ -42,7 +42,7 @@ func (iterator *Iterator) Next() bool {
 	if iterator.index < iterator.list.size {
 		iterator.index++
 	}
-	if !iterator.list.withinRange(iterator.index) {
+	if !iterator.list.WithinRange(iterator.index) {
 		iterator.element = nil
 		return false
 	}
