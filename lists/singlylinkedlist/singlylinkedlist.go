@@ -160,6 +160,22 @@ func (list *List) Values() []interface{} {
 	return values
 }
 
+func (list *List) ValuesInt() []int {
+	values := make([]int, list.size , list.size)
+	for e, element := 0, list.First; element != nil; e, element = e+1, element.Next {
+		values[e] = element.Value.(int)
+	}
+	return values
+}
+
+func (list *List) ValuesString() []string {
+	values := make([]string, list.size , list.size)
+	for e, element := 0, list.First; element != nil; e, element = e+1, element.Next {
+		values[e] = element.Value.(string)
+	}
+	return values
+}
+
 //IndexOf returns index of provided element
 func (list *List) IndexOf(value interface{}) int {
 	if list.size  == 0 {
